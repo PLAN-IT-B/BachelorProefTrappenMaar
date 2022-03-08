@@ -1,0 +1,3 @@
+4 diodes
+2 weerstanden 220 Ohm
+1 condensator 15.000 uH
