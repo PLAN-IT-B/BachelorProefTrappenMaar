@@ -16,7 +16,7 @@ char msg[50];
 int value = 0;
 
 void callback(char *topic, byte *message, unsigned int length);
-void sendTo7Segment (int eps, char cstrs);
+void sendTo7Segment (int eps, char cstrs[]);
 
 void setup_wifi()
 {
@@ -94,7 +94,7 @@ void reconnect()
   }
 }
 
-void sendTo7Segment(int randomEsp, char cstr){
+void sendTo7Segment(int randomEsp, char* cstr){
   if(randomEsp == 1) {
     client.publish("TrappenMaar/esp1", cstr);
     delay(5000); //zelfde delay als andere esp's bij laten branden 7segment
@@ -128,7 +128,7 @@ void loop()
     lastMsg = now;
   }
 
-  //-------RANDOM ISP KIEZEN-------//
+  //-------RANDOM ESP KIEZEN-------//
   //idee: 4 esp laten luisteren elk op iets anders: de eerste op TrappenMaar/esp1 de tweede op ..
   //en dan eerst een random int laten kiezen tussen 1 en 4 en afh van welk int, via een if lus, een andere lus uitvoeren en dus ook naar een andere esp schrijven
   // hypothetische code: 
@@ -137,7 +137,7 @@ void loop()
 
   int randomGetal = random(1,5);
   char cstr[16];
-  itoa(randomGetal, cstr,10);
+  itoa(randomGetal,cstr,10);
   int randomEsp = random(1,3); //getal 1,2, 3 of 4
   Serial.println("randomESP");
   sendTo7Segment(randomEsp, cstr);
