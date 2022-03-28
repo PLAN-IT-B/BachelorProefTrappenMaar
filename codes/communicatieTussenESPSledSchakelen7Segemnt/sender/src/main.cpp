@@ -137,9 +137,13 @@ void loop()
 
   int randomGetal = random(1,5);
   char cstr[16];
-  itoa(randomGetal,cstr,10);
-  int randomEsp = random(1,3); //getal 1,2, 3 of 4
+  itoa(randomGetal, cstr,10);
+  int randomEsp = random(1,2); //getal 1,2, 3 of 4
   Serial.println("randomESP");
+  Serial.print("esp: ");
+  Serial.print(randomEsp);
+  Serial.print("nummer: ");
+  Serial.println(cstr);
   sendTo7Segment(randomEsp, cstr);
 
 

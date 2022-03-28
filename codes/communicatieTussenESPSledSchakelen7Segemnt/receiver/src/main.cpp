@@ -144,7 +144,7 @@ void reconnect()
       Serial.println("connected");
       // Subscribe
       //client.subscribe("input/#");
-      client.subscribe("TrappenMaar/esp1");
+      client.subscribe("TrappenMaar");
     }
     else
     {
