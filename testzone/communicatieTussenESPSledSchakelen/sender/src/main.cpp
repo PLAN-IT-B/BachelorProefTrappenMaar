@@ -109,10 +109,13 @@ void loop()
 
 
   client.publish("TrappenMaar", "1");
+  Serial.println("1");
   delay(3000);
   client.publish("TrappenMaar", "0");
+  Serial.println("0");
   delay(3000);
   client.publish("TrappenMaar", "2");
+  Serial.println("2");
   delay(3000);
 
 }
