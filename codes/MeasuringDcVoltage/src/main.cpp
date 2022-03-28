@@ -1,14 +1,14 @@
 #include <Adafruit_PN532.h>
 #include <LiquidCrystal_I2C.h>
-#include "WiFi.h"
-#include "PubSubClient.h"
+//#include "WiFi.h"
+//#include "PubSubClient.h"
 
-#define SSID "NETGEAR68"
-#define PWD "excitedtuba713"
+//#define SSID "NETGEAR68"
+//#define PWD "excitedtuba713"
 
-#define MQTT_SERVER "192.168.1.2"
-#define MQTT_PORT 1883
-
+//#define MQTT_SERVER "192.168.1.2"
+//#define MQTT_PORT 1883
+/*
 WiFiClient espClient;
 PubSubClient client(espClient);
 long lastMsg = 0;
@@ -19,8 +19,8 @@ int level;
 String messageSend;
 
 void callback(char *topic, byte *message, unsigned int length);
-
-void setup_wifi()
+*/
+/*void setup_wifi()
 {
   delay(10);
   Serial.println("Connecting to WiFi..");
@@ -37,7 +37,7 @@ void setup_wifi()
   Serial.println("WiFi connected");
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
-}
+}*/
 
 LiquidCrystal_I2C lcd (0x27, 20,4);  //
 byte block[] = {
@@ -123,8 +123,8 @@ void setup() {
   lcd.init();
   lcd.backlight();
   Serial.begin(115200);                // Start serial monitor after a few seconds. Mainly for testing code to get it to work.
-  client.setServer(MQTT_SERVER, MQTT_PORT);
-  client.setCallback(callback);
+  //client.setServer(MQTT_SERVER, MQTT_PORT);
+  //client.setCallback(callback);
   lcd.begin(20,4);
   
   lcd.createChar(0, block);
@@ -144,7 +144,7 @@ void setup() {
   lcd.setCursor(12,3); lcd.write(4);
   lcd.setCursor(17,3); lcd.write(5);
  
-}
+}/*
 void callback(char *topic, byte *message, unsigned int length)
 {
   Serial.print("Message arrived on topic: ");
@@ -190,7 +190,7 @@ void reconnect()
     }
   }
 }
-
+*/
 
 void display(int r) {
   lcd.setCursor(15, 2);
@@ -210,7 +210,7 @@ void display(int r) {
         else{
           display(r);
         }
-      level = 0;    
+      ///level = 0;    
     }
     else if((0<(r)) && ((r) <=50)) {
       lcd.setCursor(0,0); lcd.write(0); lcd.write(0); lcd.write(0); lcd.write(0); lcd.write(0);
@@ -220,7 +220,7 @@ void display(int r) {
       lcd.setCursor(5,1); lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6);lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6);
       lcd.setCursor(5,2); lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6);lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6);
 
-      level =1;
+      //level =1;
     }
     else if((50 < (r)) && ((r) <=150)){
       lcd.setCursor(0,0); lcd.write(0); lcd.write(0); lcd.write(0); lcd.write(0); lcd.write(0);lcd.write(0); lcd.write(0); lcd.write(0); lcd.write(0); lcd.write(0);
@@ -230,7 +230,7 @@ void display(int r) {
       lcd.setCursor(10,1); lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6);lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6); 
       lcd.setCursor(10,2); lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6);lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6); 
 
-      level =2;
+      //level =2;
  }
     else if((150 < (r)) && ((r) <=250)){
       lcd.setCursor(0,0); lcd.write(0); lcd.write(0); lcd.write(0); lcd.write(0); lcd.write(0);lcd.write(0); lcd.write(0); lcd.write(0); lcd.write(0); lcd.write(0);lcd.write(0);lcd.write(0); lcd.write(0); lcd.write(0); lcd.write(0);
@@ -240,7 +240,7 @@ void display(int r) {
       lcd.setCursor(15,1); lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6);
       lcd.setCursor(15,2); lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6); lcd.write(6);
 
-      level = 3;
+      //level = 3;
 }
 
     else if((r)> 250) {
@@ -248,7 +248,7 @@ void display(int r) {
       lcd.setCursor(0,1); lcd.write(0); lcd.write(0); lcd.write(0); lcd.write(0); lcd.write(0);lcd.write(0); lcd.write(0); lcd.write(0); lcd.write(0); lcd.write(0);lcd.write(0);lcd.write(0); lcd.write(0); lcd.write(0); lcd.write(0); lcd.write(0); lcd.write(0); lcd.write(0); lcd.write(0); lcd.write(0);
       lcd.setCursor(0,2); lcd.write(0); lcd.write(0); lcd.write(0); lcd.write(0); lcd.write(0);lcd.write(0); lcd.write(0); lcd.write(0); lcd.write(0); lcd.write(0);lcd.write(0);lcd.write(0); lcd.write(0); lcd.write(0); lcd.write(0); lcd.write(0); lcd.write(0); lcd.write(0); lcd.write(0); lcd.write(0);
 
-      level = 4;   
+      //level = 4;   
 }
   
 }
@@ -266,12 +266,13 @@ void loop() {
   Serial.println(100*voltage);
   display(100*voltage);
   
+  /*
   char cstr[16];
   if(messageSend == "Y"){
     itoa(level, cstr,10);
     client.publish("TrappenMaar/buffer", cstr);
   }
-
+*/
 
 }
 
