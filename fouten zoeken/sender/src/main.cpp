@@ -19,9 +19,10 @@ int value = 0;
 
 int fiveSeconds =0;
 int bufferValue;
-String messageTemp;
+String messageTemp = "newNumber";
+bool messageReceived = true;
 
-char cstr[16]="";
+char cstr[16];
 
 void callback(char *topic, byte *message, unsigned int length);
 void sendTo7Segment (int eps, char* cstr);
@@ -56,21 +57,6 @@ void setup()
   client.setServer(MQTT_SERVER, MQTT_PORT);
   client.setCallback(callback);
 
-
-  /*int randomGetal = random(1,5);
-  char cstr[16];
-  itoa(randomGetal,cstr,10);
-  int randomEsp = random(1,2); //getal 1,2, 3 of 4
-  Serial.println("randomESP");
-  sendTo7Segment(randomEsp, cstr);
-  Serial.println("setup done");*/
-
-  
-while(messageTemp!="newNumber"){
-  Serial.println("nog niets ontvangen");
-  control("newNumber");
-  delay(5000);
- }
 }
 
 void callback(char *topic, byte *message, unsigned int length)
@@ -78,18 +64,15 @@ void callback(char *topic, byte *message, unsigned int length)
   Serial.print("Message arrived on topic: ");
   Serial.print(topic);
   Serial.print(". Message: ");
-  String messageTemp;
 
   for (int i = 0; i < length; i++)
   {
-    Serial.print((char)message[i]);
+    //Serial.print((char)message[i]);
     messageTemp += (char)message[i];
   }
-  Serial.println();
+  //Serial.println();
   Serial.println(messageTemp);
-  control(messageTemp); 
-
-  // Feel free to add more if statements to control more GPIOs with MQTT
+  messageReceived = true;
 }
 
 
@@ -102,7 +85,7 @@ void reconnect()
     // Attempt to connect
     // creat unique client ID
     // in Mosquitto broker enable anom. access
-    if (client.connect("Lyssa"))
+    if (client.connect("buffer"))
     {
       Serial.println("connected");
       // Subscribe
@@ -125,16 +108,16 @@ void sendTo7Segment(int randomEsp, char* cstr){
   Serial.print("probeer");
   Serial.println(cstr);
   if(randomEsp == 1) {
-    client.publish("TrappenMaar",cstr);
-    digitalWrite(ONBOARD_LED,HIGH);
-    Serial.println("ok");
-    delay(500);
-    digitalWrite(ONBOARD_LED,LOW);
-
-  }
+    Serial.println("message send to esp1");
+    client.publish("TrappenMaar/esp1", cstr);
+    cstr="";  
+    }
+    
 
   else if (randomEsp ==2){
+    Serial.println("message send to esp2");
     client.publish("TrappenMaar/esp2", cstr);
+    cstr="";
   }
 
   else if (randomEsp ==3){
@@ -156,7 +139,7 @@ void control(String mess){
     Serial.println("MESSAGE: newNumber ARRIVED");
     int randomGetal = random(1,5);
     itoa(randomGetal,cstr,10);
-    int randomEsp = random(1,2); //getal 1,2, 3 of 4
+    int randomEsp = random(1,3); //getal 1,2, 3 of 4
     Serial.println("randomESP");
     Serial.print("esp: ");
     Serial.print(randomEsp);
@@ -192,6 +175,7 @@ void checkMessage(String mess) {
 void loop()
 {
     if (!client.connected()){
+    Serial.println("not connected");
     reconnect();
     }
   client.loop();
@@ -201,13 +185,15 @@ void loop()
     lastMsg = now;
   }
 
-  //-------RANDOM ESP KIEZEN-------//
-  //idee: 4 esp laten luisteren elk op iets anders: de eerste op TrappenMaar/esp1 de tweede op ..
-  //en dan eerst een random int laten kiezen tussen 1 en 4 en afh van welk int, via een if lus, een andere lus uitvoeren en dus ook naar een andere esp schrijven
-  // hypothetische code: 
-  //OPGELET: vergeet in de verschillende codes van de ESP's hun 'naam' niet uniek te maken!
-  //------------------------------//
-/*
+
+if(messageReceived == true){
+   messageReceived = false;
+   control(messageTemp);
+   messageTemp = "";
+   Serial.println(messageReceived);
+}
+
+ /*
   int randomGetal = random(1,5);
   //char cstr[16];
   itoa(randomGetal,cstr,10);
