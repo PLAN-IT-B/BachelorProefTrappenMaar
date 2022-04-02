@@ -143,7 +143,7 @@ void reconnect()
     // Attempt to connect
     // creat unique client ID
     // in Mosquitto broker enable anom. access
-    if (client.connect("sander"))
+    if (client.connect("esp1"))
     {
       Serial.println("connected");
       // Subscribe
@@ -193,6 +193,7 @@ void sendReady(){
   //-----NODIG?? DELAY?? te veel???
   //delay(50)
   turnOff();
+  delay(50);
   client.publish("TrappenMaar/buffer", "newNumber");
   Serial.println("newNumber werd gestuurd naar buffer");
 
@@ -201,18 +202,22 @@ void sendReady(){
 void schakelLED(String message){
   if (message == "1"){
     displayDigit(1);
+    delay(5000);
     sendReady();
   }
   else if(message == "2"){
     displayDigit(2);
+    delay(5000);
     sendReady();
   }
   else if(message == "3"){
     displayDigit(3);
+    delay(5000);
     sendReady();
   }
   else if(message == "4"){
     displayDigit(4); 
+    delay(5000);
     sendReady();
   }
 }
