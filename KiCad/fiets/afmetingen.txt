@@ -1,0 +1,2 @@
+Condensator 100uF
+	3.24 cm (enkel het lichaam)
