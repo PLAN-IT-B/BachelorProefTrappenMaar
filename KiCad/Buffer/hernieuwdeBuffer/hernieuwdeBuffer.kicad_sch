@@ -2770,7 +2770,7 @@
     (property "Value" "10k" (id 1) (at 46.99 55.8799 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "libraries:RESC6332X65N" (id 2) (at 42.672 54.61 90)
+    (property "Footprint" "" (id 2) (at 42.672 54.61 90)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (id 3) (at 44.45 54.61 0)
@@ -2876,7 +2876,7 @@
     (property "Value" "10k" (id 1) (at 92.71 48.2599 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "libraries:RESC6332X65N" (id 2) (at 88.392 46.99 90)
+    (property "Footprint" "" (id 2) (at 88.392 46.99 90)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (id 3) (at 90.17 46.99 0)
@@ -3263,10 +3263,10 @@
       (reference "PS1") (unit 1) (value "ITX0512SA") (footprint "libraries:Buck Converter")
     )
     (path "/9d072175-6cd4-46e7-8845-1132e5fc1b17"
-      (reference "R1") (unit 1) (value "10k") (footprint "libraries:RESC6332X65N")
+      (reference "R1") (unit 1) (value "10k") (footprint "Resistor_SMD:R_0805_2012Metric")
     )
     (path "/b5e37d81-054e-45c5-b61e-117b78654e64"
-      (reference "R2") (unit 1) (value "10k") (footprint "libraries:RESC6332X65N")
+      (reference "R2") (unit 1) (value "10k") (footprint "Resistor_SMD:R_0805_2012Metric")
     )
     (path "/3d23cf47-7cc8-4c1d-b5fd-e2d35ca14dd8"
       (reference "SW1") (unit 1) (value "ENABLE") (footprint "libraries:SW_1825910-6-4")
