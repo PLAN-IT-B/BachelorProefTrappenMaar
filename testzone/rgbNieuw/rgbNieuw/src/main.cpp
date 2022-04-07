@@ -1,14 +1,14 @@
 #include <Arduino.h>
 
-#define yellow1 12
-#define yellow2 14
+#define yellow1 33
+#define yellow2 25
 #define yellow3 27
-#define green 26
-#define red 25
+#define green 5
+#define red 23
 int PWM_frequency = 1000;
 int PWM_CHANNEL = 0;
 int PWM_RESOLUTION = 8;
-int dutyPin = 13;
+int dutyPin = 32;
 int dutyCycle = 127;
 int score = 0;
 boolean oplopen = true;

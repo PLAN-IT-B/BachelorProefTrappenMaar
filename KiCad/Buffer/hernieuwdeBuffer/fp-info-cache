@@ -1,4 +1,4 @@
-20629671335383269
+20632969460571496
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -85666,6 +85666,13 @@ GCT_BC070-02-A-1-L-C_REVD1_TOP
 2
 2
 libraries
+GCT_DCJ200-10-A-XX-X_REVA
+
+
+0
+3
+3
+libraries
 MODULE_ESP-WROOM-32
 
 
@@ -87653,6 +87660,13 @@ TE_282841-2
 0
 2
 2
+libraries
+TE_282841-3
+
+
+0
+3
+3
 libraries
 TE_282841-4
 
