@@ -130,6 +130,7 @@ void setup() {
   Serial.begin(115200);                // Start serial monitor after a few seconds. Mainly for testing code to get it to work.
   client.setServer(MQTT_SERVER, MQTT_PORT);
   client.setCallback(callback);
+  Wire.begin();
   lcd.begin(20,4);
   
   lcd.createChar(0, block);
