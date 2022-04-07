@@ -1,10 +1,6 @@
 {
   "board": {
-<<<<<<< HEAD
     "active_layer": 31,
-=======
-    "active_layer": 0,
->>>>>>> 03c9d12a9d6b46ce1ab93676c537499c1d072cb6
     "active_layer_preset": "",
     "auto_track_width": true,
     "hidden_nets": [],
@@ -66,11 +62,11 @@
       35,
       36
     ],
-    "visible_layers": "7ffffff_80000001",
+    "visible_layers": "7ffffff_ffffffff",
     "zone_display_mode": 0
   },
   "meta": {
-    "filename": "hernieuwdeBuffer.kicad_prl",
+    "filename": "7segments_powerbank.kicad_prl",
     "version": 3
   },
   "project": {

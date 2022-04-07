@@ -25,10 +25,10 @@ void sendReady();
 //for the 7segment display
 int a = 14;  //For displaying segment "a"
 int b = 27;  //For displaying segment "b"
-int c = 33;  //For displaying segment "c"
+int c = 12;  //For displaying segment "c"
 int d = 25;  //For displaying segment "d"
 int e = 26;  //For displaying segment "e"
-int f = 12;  //For displaying segment "f"
+int f = 33;  //For displaying segment "f"
 int g = 13;  //For displaying segment "g"
 int point = 32; //For displaying the point
 
@@ -176,6 +176,19 @@ void loop()
   {
     lastMsg = now;
   }
+
+  schakelLED("1");
+  delay(100);
+  turnOff();
+  schakelLED("2");
+  delay(100);
+  turnOff();
+  schakelLED("3");
+  delay(100);
+  turnOff();
+  schakelLED("4");
+  delay(100);
+  turnOff();
 
 
   //client.publish("TrappenMaar","R");
