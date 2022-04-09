@@ -1,6 +1,6 @@
 {
   "board": {
-    "active_layer": 31,
+    "active_layer": 0,
     "active_layer_preset": "",
     "auto_track_width": true,
     "hidden_nets": [],
@@ -62,11 +62,11 @@
       35,
       36
     ],
-    "visible_layers": "ffdfedf_7fffffff",
+    "visible_layers": "7ffffff_ffffffff",
     "zone_display_mode": 0
   },
   "meta": {
-    "filename": "7segments.kicad_prl",
+    "filename": "7segments_beide_groundplane.kicad_prl",
     "version": 3
   },
   "project": {

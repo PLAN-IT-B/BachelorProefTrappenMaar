@@ -1,4 +1,4 @@
-20624724479983019
+20636267817314949
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -85659,12 +85659,26 @@ Buck Converter
 8
 8
 libraries
+CAP_EEE0JA101WR
+
+
+0
+2
+2
+libraries
 GCT_BC070-02-A-1-L-C_REVD1_TOP
 
 
 0
 2
 2
+libraries
+GCT_DCJ200-10-A-XX-X_REVA
+
+
+0
+3
+3
 libraries
 MODULE_ESP-WROOM-32
 
@@ -87619,6 +87633,13 @@ Surface mounted pin header SMD 2x40 2.54mm double row
 80
 80
 libraries
+RESC6332X65N
+
+
+0
+2
+2
+libraries
 SAMTEC_TSM-108-01-F-DV-016
 
 
@@ -87632,6 +87653,13 @@ SOT23
 0
 3
 3
+libraries
+SOT229P700X180-4N
+
+
+0
+4
+4
 libraries
 SW_1825910-6-4
 
@@ -87647,12 +87675,33 @@ TE_282841-2
 2
 2
 libraries
+TE_282841-3
+
+
+0
+3
+3
+libraries
+TE_282841-4
+
+
+0
+4
+4
+libraries
 TE_282841-5
 
 
 0
 5
 5
+libraries
+TE_282841-6
+
+
+0
+6
+6
 libraries
 TE_282841-8
 
