@@ -125,6 +125,9 @@ void setup() {
   client.setServer(MQTT_SERVER, MQTT_PORT);
   client.setCallback(callback);
 
+  //LEDJES INITIALISEREN
+  pinMode(12, OUTPUT);
+  digitalWrite(12, HIGH);
   lcd.init();
   lcd.backlight();
   Serial.begin(115200);                // Start serial monitor after a few seconds. Mainly for testing code to get it to work.

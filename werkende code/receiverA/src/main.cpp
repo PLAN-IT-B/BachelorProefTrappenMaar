@@ -176,7 +176,7 @@ void loop()
   {
     lastMsg = now;
   }
-
+/*
   schakelLED("1");
   delay(100);
   turnOff();
@@ -189,7 +189,7 @@ void loop()
   schakelLED("4");
   delay(100);
   turnOff();
-
+*/
 
   //client.publish("TrappenMaar","R");
   //delay(3000);
