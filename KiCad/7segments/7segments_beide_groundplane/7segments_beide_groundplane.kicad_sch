@@ -2018,7 +2018,7 @@
     (uuid 9d86002a-4404-4832-bfc8-aaaacfcac63c)
     (property "Reference" "J2" (id 0) (at 234.95 40.64 0))
     (property "Value" "12V DC" (id 1) (at 234.95 43.18 0))
-    (property "Footprint" "" (id 2) (at 236.22 48.26 0)
+    (property "Footprint" "libraries:TE_282841-2" (id 2) (at 236.22 48.26 0)
       (effects (font (size 1.27 1.27)) (justify left bottom) hide)
     )
     (property "Datasheet" "" (id 3) (at 236.22 48.26 0)
@@ -2161,7 +2161,7 @@
     (property "Value" "220u" (id 1) (at 110.49 53.3399 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
-    (property "Footprint" "Capacitor_SMD:C_0805_2012Metric" (id 2) (at 105.7148 48.26 0)
+    (property "Footprint" "" (id 2) (at 105.7148 48.26 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (id 3) (at 106.68 52.07 0)
@@ -2413,7 +2413,7 @@
       (reference "#PWR0110") (unit 1) (value "GND") (footprint "")
     )
     (path "/ca3bfd12-a47a-49d0-a984-db6af30b3c2f"
-      (reference "C1") (unit 1) (value "220u") (footprint "Capacitor_SMD:C_0805_2012Metric")
+      (reference "C1") (unit 1) (value "220u") (footprint "libraries:CAP_EEE0JA101WR")
     )
     (path "/4f6e295a-eda9-488f-8a54-b432f357af54"
       (reference "C2") (unit 1) (value "22u") (footprint "Capacitor_SMD:C_0805_2012Metric")
