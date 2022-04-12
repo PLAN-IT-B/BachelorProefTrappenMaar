@@ -3,14 +3,14 @@
 #define yellow1 33
 #define yellow2 25
 #define yellow3 27
-#define green 5
-#define red 23
+int dutyPin = 32; //Dit is de pin die de dutycycle zal genereren
+#define green 5 // niet belangrijk
+#define red 23  // niet belangrijk
 int PWM_frequency = 1000;
 int PWM_CHANNEL = 0;
 int PWM_RESOLUTION = 8;
-int dutyPin = 32;
 int dutyCycle = 127;
-int score = 0;
+int score = 1;
 boolean oplopen = true;
 
 void setup() {
@@ -61,13 +61,13 @@ void loop() {
     digitalWrite(green, HIGH);digitalWrite(red, HIGH);
     ledcWrite(PWM_CHANNEL, dutyCycle);
   }
-  if(oplopen && (score<4)){
+  if(oplopen && (score<3)){
     score++;
   }
   else if(oplopen && score==4){
     oplopen = false;
   }
-  else if(!oplopen && score > 0){
+  else if(!oplopen && score > 1){
     score--;
   }
   else oplopen = true;
