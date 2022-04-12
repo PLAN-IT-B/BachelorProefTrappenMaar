@@ -1,2 +1,15 @@
 Condensator 100uF
 	3.24 cm (enkel het lichaam)
+
+
+FIETS:
+andere condens footprint
+pull up weerstanden tussen SDA en SCL en 3v3 van de pcb
+levelshifter!
+?? micro usb poort??
+	(nu: 5V via powerbank naar level shifter (voeding bron in HV en Ground voeding in Ground)
+	(dan de lcd voeden met de HV ook (of rechtstreeks powerbank)
+	(dan de HV1 nr de scl en de LV1 naar scl pcb)
+	(dan de HV2 nr de sda en de LV2 nr de sda pcb)
+
+CHECKEN FOOTPRINTS KROONSTEENTJES
