@@ -619,7 +619,7 @@
 
   (footprint "libraries:CAP_EEE0JA101WR" (layer "F.Cu")
     (tedit 624C575B) (tstamp 589d2291-ff91-4c0e-ae7d-e88bc535ccb6)
-    (at 129.6 77.9 90)
+    (at 130.175 77.851 90)
     (property "Sheetfile" "7segments_beide_groundplane.kicad_sch")
     (property "Sheetname" "")
     (path "/ca3bfd12-a47a-49d0-a984-db6af30b3c2f")
