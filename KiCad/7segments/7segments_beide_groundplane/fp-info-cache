@@ -1,4 +1,4 @@
-20636267817314949
+20641217625248486
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -87709,6 +87709,27 @@ TE_282841-8
 0
 8
 8
+libraries
+TE_282858-8
+
+
+0
+8
+8
+libraries
+TE_1546215-4
+
+
+0
+4
+4
+libraries
+TE_1546215-8
+
+
+0
+0
+0
 libraries
 XCVR_ESP32-WROOM-32E_(16MB)
 

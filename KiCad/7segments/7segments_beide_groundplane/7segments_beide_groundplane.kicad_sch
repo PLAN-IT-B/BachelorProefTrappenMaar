@@ -1557,7 +1557,7 @@
     (property "Value" "R pinnen RGB strips" (id 1) (at 182.88 109.2199 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "libraries:TE_282841-8" (id 2) (at 176.53 121.92 0)
+    (property "Footprint" "" (id 2) (at 176.53 121.92 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "" (id 3) (at 176.53 121.92 0)
@@ -2443,7 +2443,7 @@
       (reference "J2") (unit 1) (value "12V DC") (footprint "libraries:TE_282841-2")
     )
     (path "/1842b158-5de9-40ef-b815-cc6428c97c75"
-      (reference "J3") (unit 1) (value "R pinnen RGB strips") (footprint "libraries:TE_282841-8")
+      (reference "J3") (unit 1) (value "R pinnen RGB strips") (footprint "libraries:TE_1546215-8")
     )
     (path "/8adcd312-ab4a-4413-b6a5-effc7c373c70"
       (reference "PS1") (unit 1) (value "ITX0512SA") (footprint "libraries:Buck Converter")
