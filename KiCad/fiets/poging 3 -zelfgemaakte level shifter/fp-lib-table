@@ -1,0 +1,10 @@
+(fp_lib_table
+  (lib (name "1N4148W-TP")(type "KiCad")(uri "C:/Users/Windows 10/Documents/GitHub/TrappenMaar/KiCad/libraries/1N4148W-TP")(options "")(descr ""))
+  (lib (name "282837-4")(type "KiCad")(uri "C:/Users/Windows 10/Documents/GitHub/TrappenMaar/KiCad/libraries/282837-4")(options "")(descr ""))
+  (lib (name "282841-4")(type "KiCad")(uri "C:/Users/Windows 10/Documents/GitHub/TrappenMaar/KiCad/libraries/282841-4")(options "")(descr ""))
+  (lib (name "degson")(type "KiCad")(uri "C:/Users/Windows 10/Documents/GitHub/TrappenMaar/KiCad/libraries/degson")(options "")(descr ""))
+  (lib (name "kicad-symbols-master")(type "KiCad")(uri "C:/Users/Windows 10/Documents/GitHub/TrappenMaar/KiCad/libraries/kicad-symbols-master")(options "")(descr ""))
+  (lib (name "libraries")(type "KiCad")(uri "C:/Users/Windows 10/Documents/GitHub/TrappenMaar/KiCad/libraries")(options "")(descr ""))
+  (lib (name "BOB-12009")(type "KiCad")(uri "C:/Users/Windows 10/Documents/GitHub/TrappenMaar/KiCad/libraries/BOB-12009")(options "")(descr ""))
+  (lib (name "2N7002")(type "KiCad")(uri "C:/Users/Windows 10/Documents/GitHub/TrappenMaar/KiCad/libraries/2N7002")(options "")(descr ""))
+)
