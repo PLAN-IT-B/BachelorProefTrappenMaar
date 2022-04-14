@@ -1557,7 +1557,7 @@
     (property "Value" "R pinnen RGB strips" (id 1) (at 182.88 109.2199 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "" (id 2) (at 176.53 121.92 0)
+    (property "Footprint" "libraries:TE_1546215-8" (id 2) (at 176.53 121.92 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "" (id 3) (at 176.53 121.92 0)
@@ -2018,7 +2018,7 @@
     (uuid 9d86002a-4404-4832-bfc8-aaaacfcac63c)
     (property "Reference" "J2" (id 0) (at 234.95 40.64 0))
     (property "Value" "12V DC" (id 1) (at 234.95 43.18 0))
-    (property "Footprint" "libraries:TE_282841-2" (id 2) (at 236.22 48.26 0)
+    (property "Footprint" "" (id 2) (at 236.22 48.26 0)
       (effects (font (size 1.27 1.27)) (justify left bottom) hide)
     )
     (property "Datasheet" "" (id 3) (at 236.22 48.26 0)
@@ -2440,7 +2440,7 @@
       (reference "J1") (unit 1) (value "Conn_01x04_Female") (footprint "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical")
     )
     (path "/9d86002a-4404-4832-bfc8-aaaacfcac63c"
-      (reference "J2") (unit 1) (value "12V DC") (footprint "libraries:TE_282841-2")
+      (reference "J2") (unit 1) (value "12V DC") (footprint "libraries:TE_1546215-2")
     )
     (path "/1842b158-5de9-40ef-b815-cc6428c97c75"
       (reference "J3") (unit 1) (value "R pinnen RGB strips") (footprint "libraries:TE_1546215-8")
