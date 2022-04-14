@@ -2006,7 +2006,6 @@
   (via (at 156.9974 45.212) (size 2) (drill 1) (layers "F.Cu" "B.Cu") (free) (net 1) (tstamp c936a738-392b-4c58-ab07-f6c48344045b))
   (via (at 187.709 39.6308) (size 2) (drill 1) (layers "F.Cu" "B.Cu") (free) (net 1) (tstamp ebfdd5da-c4b2-423c-ac26-19208bbbbe35))
   (via (at 126.1872 75.692) (size 2) (drill 1) (layers "F.Cu" "B.Cu") (free) (net 1) (tstamp f403da2a-16b4-446b-b656-ebdb1e96a78a))
-  (segment (start 161.5588 51.5632) (end 161.5588 58.0632) (width 0.7) (layer "B.Cu") (net 1) (tstamp d5c5a35a-2641-409b-a7de-80610f3f5e8b))
   (segment (start 157.5042 51.5632) (end 163.93615 45.13125) (width 0.7) (layer "F.Cu") (net 2) (tstamp 1a35d2c1-791b-405a-9e58-0d241ed7e18d))
   (segment (start 148.6756 55.7116) (end 147.574 54.61) (width 0.7) (layer "F.Cu") (net 2) (tstamp 1ae28490-8f66-470e-8e65-707c35c6a5a6))
   (segment (start 157.0588 58.0632) (end 157.2874 57.8346) (width 0.7) (layer "F.Cu") (net 2) (tstamp 3bb645a8-a208-4650-9a32-ecf01650c5c3))
