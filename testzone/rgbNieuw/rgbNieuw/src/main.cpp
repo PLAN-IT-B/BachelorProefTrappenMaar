@@ -61,7 +61,7 @@ void loop() {
     digitalWrite(green, HIGH);digitalWrite(red, HIGH);
     ledcWrite(PWM_CHANNEL, dutyCycle);
   }
-  if(oplopen && (score<3)){
+  /*if(oplopen && (score<3)){
     score++;
   }
   else if(oplopen && score==4){
@@ -70,8 +70,8 @@ void loop() {
   else if(!oplopen && score > 1){
     score--;
   }
-  else oplopen = true;
+  else oplopen = true;*/
   
-  delay(500);
+  delay(1000);
   //aflopen
 }
