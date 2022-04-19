@@ -132,7 +132,7 @@ void reconnect()
       Serial.println("connected");
       // Subscribe
       // client.subscribe("input/#");
-      client.subscribe("TrappenMaar/buffer");
+      client.subscribe("trappenmaar/buffer");
     }
     else
     {

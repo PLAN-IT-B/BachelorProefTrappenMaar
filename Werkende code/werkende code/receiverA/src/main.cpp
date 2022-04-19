@@ -234,6 +234,6 @@ void schakelLED(String message){
     delay(2000);
     client.publish("TrappenMaar/fiets", "led3");
     delay(2000);
-    client.publish("TrappenMaar/fiets", "ledrgb");
+    //client.publish("TrappenMaar/fiets", "ledrgb");
     sendReady();
 }
