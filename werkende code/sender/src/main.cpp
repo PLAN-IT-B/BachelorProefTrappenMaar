@@ -162,6 +162,7 @@ void control(String mess){
 
   else{
     Serial.println("MESSAGE: not for me");
+    Serial.println(messageTemp);
 
   }
   
@@ -171,9 +172,12 @@ void checkMessage(String mess) {
   //Serial.println("bericht ontvangen");
   if(mess == cstr){
     bufferValue ++;
+    client.publish("TrappenMaar/fiets", "correct");
     Serial.println("CORRECT GEFIETST, buffer stijgt");
   }
-
+  else{
+    client.publish("TrappenMaar/fiets", "false");
+  }
 }
 
 

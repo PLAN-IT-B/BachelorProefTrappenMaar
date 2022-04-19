@@ -214,28 +214,26 @@ void sendReady(){
 
 void schakelLED(String message){
   if (message == "0"){
-    displayDigit(0);
-    delay(5000);
-    sendReady();
+    displayDigit(0); 
   }
   else if (message == "1"){
     displayDigit(1);
-    delay(5000);
-    sendReady();
   }
   else if(message == "2"){
     displayDigit(2);
-    delay(5000);
-    sendReady();
   }
   else if(message == "3"){
     displayDigit(3);
-    delay(5000);
-    sendReady();
   }
   else if(message == "4"){
     displayDigit(4); 
-    delay(5000);
-    sendReady();
   }
+    client.publish("TrappenMaar/fiets", "led1");
+    delay(2000);
+    client.publish("TrappenMaar/fiets", "led2");
+    delay(2000);
+    client.publish("TrappenMaar/fiets", "led3");
+    delay(2000);
+    client.publish("TrappenMaar/fiets", "ledrgb");
+    sendReady();
 }

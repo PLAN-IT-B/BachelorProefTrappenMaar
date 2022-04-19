@@ -9,6 +9,13 @@
 #define MQTT_SERVER "192.168.1.2"
 #define MQTT_PORT 1883
 
+#define LED1 12
+#define LED2 13
+#define LED3 14
+#define Rled 19
+#define Gled 17
+#define Bled 16
+
 WiFiClient espClient;
 PubSubClient client(espClient);
 long lastMsg = 0;
@@ -153,6 +160,13 @@ void setup() {
   lcd.setCursor(12,3); lcd.write(4);
   lcd.setCursor(17,3); lcd.write(5);
  
+  pinMode (LED1, OUTPUT);
+  pinMode (LED2, OUTPUT);
+  pinMode (LED3, OUTPUT);
+  pinMode (Rled, OUTPUT);
+  pinMode (Gled, OUTPUT);
+  pinMode (Bled, OUTPUT);
+
 }
 void callback(char *topic, byte *message, unsigned int length)
 {
@@ -298,9 +312,36 @@ void loop() {
     client.publish("TrappenMaar/buffer", cstr);
     Serial.print("level wordt verstuurd: ");
     Serial.println(cstr);
+    
+    digitalWrite (LED1, LOW);	
+    digitalWrite (LED2, LOW);	
+    digitalWrite (LED3, LOW);	
+    digitalWrite (Gled, LOW);	
+    digitalWrite (Rled, LOW);	
+
   }
 
+    if((messageReceived == true) && (messageSend == "led1")){
+        digitalWrite (LED1, HIGH);	// turn on the LED
+    }
 
+    if((messageReceived == true) && (messageSend == "led2")){
+        digitalWrite (LED2, HIGH);	// turn on the LED
+    }
+
+    if((messageReceived == true) && (messageSend == "led3")){
+        digitalWrite (LED3, HIGH);	// turn on the LED
+    }
+
+    if((messageReceived == true) && (messageSend == "correct")){
+      digitalWrite (Gled, HIGH);	// turn on the LED
+    }
+
+    
+    if((messageReceived == true) && (messageSend == "false")){
+      digitalWrite (Rled, HIGH);	// turn on the LED
+    }
+  
 }
 
 
