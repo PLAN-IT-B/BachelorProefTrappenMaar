@@ -25,10 +25,10 @@ void sendReady();
 //for the 7segment display
 int a = 14;  //For displaying segment "a"
 int b = 27;  //For displaying segment "b"
-int c = 12;  //For displaying segment "c"
+int c = 33;  //For displaying segment "c"
 int d = 25;  //For displaying segment "d"
 int e = 26;  //For displaying segment "e"
-int f = 33;  //For displaying segment "f"
+int f = 12;  //For displaying segment "f"
 int g = 13;  //For displaying segment "g"
 int point = 32; //For displaying the point
 
@@ -143,12 +143,12 @@ void reconnect()
     // Attempt to connect
     // creat unique client ID
     // in Mosquitto broker enable anom. access
-    if (client.connect("esp1"))
+    if (client.connect("esp2"))
     {
       Serial.println("connected");
       // Subscribe
       //client.subscribe("input/#");
-      client.subscribe("TrappenMaar/esp1");
+      client.subscribe("TrappenMaar/esp2");
     }
     else
     {
@@ -176,20 +176,7 @@ void loop()
   {
     lastMsg = now;
   }
-/*
-  schakelLED("1");
-  delay(100);
-  turnOff();
-  schakelLED("2");
-  delay(100);
-  turnOff();
-  schakelLED("3");
-  delay(100);
-  turnOff();
-  schakelLED("4");
-  delay(100);
-  turnOff();
-*/
+
 
   //client.publish("TrappenMaar","R");
   //delay(3000);
@@ -213,27 +200,24 @@ void sendReady(){
 }
 
 void schakelLED(String message){
-  if (message == "0"){
-    displayDigit(0); 
-  }
-  else if (message == "1"){
+  if (message == "1"){
     displayDigit(1);
+    delay(5000);
+    sendReady();
   }
   else if(message == "2"){
     displayDigit(2);
+    delay(5000);
+    sendReady();
   }
   else if(message == "3"){
     displayDigit(3);
+    delay(5000);
+    sendReady();
   }
   else if(message == "4"){
     displayDigit(4); 
-  }
-    client.publish("TrappenMaar/fiets", "led1");
-    delay(2000);
-    client.publish("TrappenMaar/fiets", "led2");
-    delay(2000);
-    client.publish("TrappenMaar/fiets", "led3");
-    delay(2000);
-    client.publish("TrappenMaar/fiets", "ledrgb");
+    delay(5000);
     sendReady();
+  }
 }
