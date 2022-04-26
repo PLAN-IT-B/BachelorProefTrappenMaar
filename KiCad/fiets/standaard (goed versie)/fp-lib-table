@@ -1,9 +1,0 @@
-(fp_lib_table
-  (lib (name "degson")(type "KiCad")(uri "C:/Users/Windows 10/Documents/GitHub/TrappenMaar/KiCad/libraries/degson")(options "")(descr ""))
-  (lib (name "kicad-symbols-master")(type "KiCad")(uri "C:/Users/Windows 10/Documents/GitHub/TrappenMaar/KiCad/libraries/kicad-symbols-master")(options "")(descr ""))
-  (lib (name "282841_4")(type "KiCad")(uri "C:/Users/Windows 10/Documents/GitHub/TrappenMaar/KiCad/libraries/ul_282841-4/KiCAD/2022-04-03_12-42-58/footprints.pretty")(options "")(descr ""))
-  (lib (name "1N4148W-TP")(type "KiCad")(uri "C:/Users/Windows 10/Documents/GitHub/TrappenMaar/KiCad/libraries/1N4148W-TP")(options "")(descr ""))
-  (lib (name "libraries")(type "KiCad")(uri "C:/Users/Windows 10/Documents/GitHub/TrappenMaar/KiCad/libraries")(options "")(descr ""))
-  (lib (name "282837-4")(type "KiCad")(uri "C:/Users/Windows 10/Documents/GitHub/TrappenMaar/KiCad/libraries/282837-4")(options "")(descr ""))
-  (lib (name "282841-4")(type "KiCad")(uri "C:/Users/Windows 10/Documents/GitHub/TrappenMaar/KiCad/libraries/282841-4")(options "")(descr ""))
-)
