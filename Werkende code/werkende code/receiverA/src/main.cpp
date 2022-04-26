@@ -20,6 +20,11 @@ int value = 0;
 void callback(char *topic, byte *message, unsigned int length);
 void schakelLED(String message);
 void sendReady();
+//void controlSend();
+unsigned long startTime;
+void control(String message);
+int controlSend = 0;
+int oldControlSend = 0;
 
 
 //for the 7segment display
@@ -52,7 +57,10 @@ void setup_wifi()
 }
 
 void setup()
+
 {
+  startTime = millis();
+
 
   Serial.begin(115200);
 
@@ -127,12 +135,10 @@ void callback(char *topic, byte *message, unsigned int length)
   }
   Serial.println();
   Serial.println(messageTemp);
-  schakelLED(messageTemp);
-  Serial.println("ontvangen");
-
-
+  control(messageTemp);
   // Feel free to add more if statements to control more GPIOs with MQTT
 }
+
 
 void reconnect()
 {
@@ -143,12 +149,13 @@ void reconnect()
     // Attempt to connect
     // creat unique client ID
     // in Mosquitto broker enable anom. access
-    if (client.connect("esp1"))
+    if (client.connect("segment1"))
     {
       Serial.println("connected");
       // Subscribe
       //client.subscribe("input/#");
-      client.subscribe("TrappenMaar/esp1");
+      client.subscribe("TrappenMaar/segment1");
+
     }
     else
     {
@@ -161,6 +168,27 @@ void reconnect()
   }
 }
 
+
+void control(String mess){
+  if((mess == "0")||(mess == "1")||(mess == "2")||(mess == "3")||(mess == "4")){
+    schakelLED(mess);
+    controlSend ++;
+
+  }
+
+else if((mess == "resetSegment1")){
+    Serial.println("Restarting in 10 seconds");
+    delay(10000);
+    ESP.restart();
+    Serial.println("Segment 1 is ook ready");
+    client.publish("TrappenMaar/buffer", "Segment1 ready");
+  }
+
+  else {
+    Serial.println("message not for me");
+  }
+  
+}
 
 
 void loop()
@@ -176,6 +204,18 @@ void loop()
   {
     lastMsg = now;
   }
+
+  //controlere of 7 segments berichten blijft krijgen
+   if (millis() - startTime >= 15000) {
+      // 5 seconds have elapsed. ... do something interesting ...
+      if(oldControlSend == controlSend){
+          client.publish("TrappenMaar/buffer", "newNumber");
+          Serial.println("newNumber werd OPNIEUW gestuurd naar buffer");   
+      }
+          oldControlSend = controlSend;
+          startTime = millis();
+   }
+
 /*
   schakelLED("1");
   delay(100);
@@ -196,6 +236,7 @@ void loop()
   
 
 }
+
 
 void sendReady(){
   //dan fiets zeggen, stuur level

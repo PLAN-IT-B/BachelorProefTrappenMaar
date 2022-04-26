@@ -56,6 +56,7 @@ void sendTo7Segment (int eps, char* cstr);
 void checkMessage(String mess);
 void control(String message);
 void setBuffer();
+int aantalReady = 0;
 
 void setup_wifi()
 {
@@ -132,7 +133,8 @@ void reconnect()
       Serial.println("connected");
       // Subscribe
       // client.subscribe("input/#");
-      client.subscribe("trappenmaar/buffer");
+      client.subscribe("TrappenMaar/buffer");
+      client.subscribe("controlpanel/reset");
     }
     else
     {
@@ -150,8 +152,8 @@ void sendTo7Segment(int randomEsp, char* cstr){
   Serial.print("probeer");
   Serial.println(cstr);
   if(randomEsp == 1) {
-    Serial.println("message send to esp1");
-    client.publish("TrappenMaar/esp1", cstr);
+    Serial.println("message send to segment1");
+    client.publish("TrappenMaar/segment1", cstr);
     cstr="";  
     }
     
@@ -160,6 +162,8 @@ void sendTo7Segment(int randomEsp, char* cstr){
     Serial.println("message send to esp2");
     client.publish("TrappenMaar/esp2", cstr);
     cstr="";
+    client.publish("TrappenMaar/fiets", "correct");
+
   }
 
   else if (randomEsp ==3){
@@ -218,6 +222,25 @@ void control(String mess){
     }
   }
 
+    else if(mess == "reset"){
+      client.publish("TrappenMaar/segment1","resetSegment1");
+      client.publish("TrappenMaar/fiets","resetFiets");
+
+  }
+
+  else if((mess == "Fiets ready")||(mess == "Segment1 ready")){
+    aantalReady ++;
+    if(aantalReady == 2){
+      aantalReady = 0;
+      Serial.println("Restarting in 10 seconds");
+      delay(10000);
+      ESP.restart();
+      Serial.println("Buffer is ook ready");
+      client.publish("controlpanel/reset", "TrappenMaar is ready");
+    }
+
+
+  }
   else{
     Serial.println("MESSAGE: not for me");
     Serial.println(messageTemp);
