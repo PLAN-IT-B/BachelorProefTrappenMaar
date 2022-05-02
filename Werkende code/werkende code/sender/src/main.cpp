@@ -37,6 +37,7 @@ int dutyCycle = 127;
 int interval =1;
 int Maxscore = 16*interval;
 boolean oplopen = true;
+int score; 
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -48,6 +49,14 @@ int fiveSeconds =0;
 int bufferValue=0;
 String messageTemp = "newNumber";
 bool messageReceived = true;
+String color = "";
+String oldColor = color;
+
+unsigned long startTime;
+int controlSend = 0;
+int oldControlSend = 0;
+
+
 
 char cstr[16];
 
@@ -194,6 +203,7 @@ void control(String mess){
     Serial.print("nummer: ");
     Serial.print(randomGetal);
     sendTo7Segment(randomEsp, cstr);
+    controlSend ++;
   }
 
   //checken of level doorgestuurd werd door fiets
@@ -268,6 +278,7 @@ void setBuffer(){
     digitalWrite(yellow1, LOW);digitalWrite(yellow2, LOW);digitalWrite(yellow3, LOW); digitalWrite(yellow4, LOW);digitalWrite(yellow5, LOW);digitalWrite(yellow6, LOW);
     digitalWrite(groen1, LOW);digitalWrite(groen2, LOW);digitalWrite(groen3, LOW); digitalWrite(groen4, LOW);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
+    color = "niets";
     } 
     else if((0*interval<(bufferValue)) && ((bufferValue) <=1*interval)) {
     //rood1
@@ -275,6 +286,7 @@ void setBuffer(){
     digitalWrite(yellow1, LOW);digitalWrite(yellow2, LOW);digitalWrite(yellow3, LOW); digitalWrite(yellow4, LOW);digitalWrite(yellow5, LOW);digitalWrite(yellow6, LOW);
     digitalWrite(groen1, LOW);digitalWrite(groen2, LOW);digitalWrite(groen3, LOW); digitalWrite(groen4, LOW);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
+    color = "rood";
     }
     else if((1*interval<(bufferValue)) && ((bufferValue) <=2*interval)) {
     //rood2
@@ -282,6 +294,8 @@ void setBuffer(){
     digitalWrite(yellow1, LOW);digitalWrite(yellow2, LOW);digitalWrite(yellow3, LOW); digitalWrite(yellow4, LOW);digitalWrite(yellow5, LOW);digitalWrite(yellow6, LOW);
     digitalWrite(groen1, LOW);digitalWrite(groen2, LOW);digitalWrite(groen3, LOW); digitalWrite(groen4, LOW);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
+    color = "rood";
+
     }
     else if((2*interval<(bufferValue)) && ((bufferValue) <=3*interval)) {
     //rood3
@@ -289,6 +303,8 @@ void setBuffer(){
     digitalWrite(yellow1, LOW);digitalWrite(yellow2, LOW);digitalWrite(yellow3, LOW); digitalWrite(yellow4, LOW);digitalWrite(yellow5, LOW);digitalWrite(yellow6, LOW);
     digitalWrite(groen1, LOW);digitalWrite(groen2, LOW);digitalWrite(groen3, LOW); digitalWrite(groen4, LOW);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
+    color = "rood";
+
     }
     else if((3*interval<(bufferValue)) && ((bufferValue) <=4*interval)) {
   //rood4
@@ -296,6 +312,8 @@ void setBuffer(){
     digitalWrite(yellow1, LOW);digitalWrite(yellow2, LOW);digitalWrite(yellow3, LOW); digitalWrite(yellow4, LOW);digitalWrite(yellow5, LOW);digitalWrite(yellow6, LOW);
     digitalWrite(groen1, LOW);digitalWrite(groen2, LOW);digitalWrite(groen3, LOW); digitalWrite(groen4, LOW);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
+    color = "rood";
+
     }
     else if((4*interval<(bufferValue)) && ((bufferValue) <=5*interval)) {
     //rood5
@@ -303,6 +321,8 @@ void setBuffer(){
     digitalWrite(yellow1, LOW);digitalWrite(yellow2, LOW);digitalWrite(yellow3, LOW); digitalWrite(yellow4, LOW);digitalWrite(yellow5, LOW);digitalWrite(yellow6, LOW);
     digitalWrite(groen1, LOW);digitalWrite(groen2, LOW);digitalWrite(groen3, LOW); digitalWrite(groen4, LOW);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
+    color = "rood";
+
     }
     else if((5*interval<(bufferValue)) && ((bufferValue) <=6*interval)) {
     //oranje1
@@ -310,6 +330,8 @@ void setBuffer(){
     digitalWrite(yellow1, HIGH);digitalWrite(yellow2, LOW);digitalWrite(yellow3, LOW); digitalWrite(yellow4, LOW);digitalWrite(yellow5, LOW);digitalWrite(yellow6, LOW);
     digitalWrite(groen1, LOW);digitalWrite(groen2, LOW);digitalWrite(groen3, LOW); digitalWrite(groen4, LOW);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
+    color = "oranje";
+
     }
     else if((6*interval<(bufferValue)) && ((bufferValue) <=7*interval)) {
     //oranje2
@@ -317,6 +339,8 @@ void setBuffer(){
     digitalWrite(yellow1, HIGH);digitalWrite(yellow2, HIGH);digitalWrite(yellow3, LOW); digitalWrite(yellow4, LOW);digitalWrite(yellow5, LOW);digitalWrite(yellow6, LOW);
     digitalWrite(groen1, LOW);digitalWrite(groen2, LOW);digitalWrite(groen3, LOW); digitalWrite(groen4, LOW);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
+    color = "oranje";
+
     }
     else if((7*interval<(bufferValue)) && ((bufferValue) <=8*interval)) {
     //oranje3
@@ -324,6 +348,8 @@ void setBuffer(){
     digitalWrite(yellow1, HIGH);digitalWrite(yellow2, HIGH);digitalWrite(yellow3, HIGH); digitalWrite(yellow4, LOW);digitalWrite(yellow5, LOW);digitalWrite(yellow6, LOW);
     digitalWrite(groen1, LOW);digitalWrite(groen2, LOW);digitalWrite(groen3, LOW); digitalWrite(groen4, LOW);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
+    color = "oranje";
+
     }
     else if((8*interval<(bufferValue)) && ((bufferValue) <=9*interval)) {
     //oranje4
@@ -331,6 +357,7 @@ void setBuffer(){
     digitalWrite(yellow1, HIGH);digitalWrite(yellow2, HIGH);digitalWrite(yellow3, HIGH); digitalWrite(yellow4, HIGH);digitalWrite(yellow5, LOW);digitalWrite(yellow6, LOW);
     digitalWrite(groen1, LOW);digitalWrite(groen2, LOW);digitalWrite(groen3, LOW); digitalWrite(groen4, LOW);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
+    color = "oranje";
     }
     else if((9*interval<(bufferValue)) && ((bufferValue) <=10*interval)) {
     //oranje5
@@ -338,6 +365,8 @@ void setBuffer(){
     digitalWrite(yellow1, HIGH);digitalWrite(yellow2, HIGH);digitalWrite(yellow3, HIGH); digitalWrite(yellow4, HIGH);digitalWrite(yellow5, HIGH);digitalWrite(yellow6, LOW);
     digitalWrite(groen1, LOW);digitalWrite(groen2, LOW);digitalWrite(groen3, LOW); digitalWrite(groen4, LOW);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
+    color = "oranje";
+
     }
     else if((10*interval<(bufferValue)) && ((bufferValue) <=11*interval)) {
     //oranje6
@@ -345,6 +374,8 @@ void setBuffer(){
     digitalWrite(yellow1, HIGH);digitalWrite(yellow2, HIGH);digitalWrite(yellow3, HIGH); digitalWrite(yellow4, HIGH);digitalWrite(yellow5, HIGH);digitalWrite(yellow6, HIGH);
     digitalWrite(groen1, LOW);digitalWrite(groen2, LOW);digitalWrite(groen3, LOW); digitalWrite(groen4, LOW);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
+    color = "oranje";
+
     }
     else if((11*interval<(bufferValue)) && ((bufferValue) <=12*interval)) {
     //groen1
@@ -352,6 +383,8 @@ void setBuffer(){
     digitalWrite(yellow1, HIGH);digitalWrite(yellow2, HIGH);digitalWrite(yellow3, HIGH); digitalWrite(yellow4, HIGH);digitalWrite(yellow5, HIGH);digitalWrite(yellow6, HIGH);
     digitalWrite(groen1, HIGH);digitalWrite(groen2, LOW);digitalWrite(groen3, LOW); digitalWrite(groen4, LOW);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
+    color = "groen";
+
     }
     else if((12*interval<(bufferValue)) && ((bufferValue) <=13*interval)) {
     //groen2
@@ -359,6 +392,8 @@ void setBuffer(){
     digitalWrite(yellow1, HIGH);digitalWrite(yellow2, HIGH);digitalWrite(yellow3, HIGH); digitalWrite(yellow4, HIGH);digitalWrite(yellow5, HIGH);digitalWrite(yellow6, HIGH);
     digitalWrite(groen1, HIGH);digitalWrite(groen2, HIGH);digitalWrite(groen3, LOW); digitalWrite(groen4, LOW);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
+    color = "groen";
+
     }
     else if((13*interval<(bufferValue)) && ((bufferValue) <=14*interval)) {
     //groen3
@@ -366,6 +401,8 @@ void setBuffer(){
     digitalWrite(yellow1, HIGH);digitalWrite(yellow2, HIGH);digitalWrite(yellow3, HIGH); digitalWrite(yellow4, HIGH);digitalWrite(yellow5, HIGH);digitalWrite(yellow6, HIGH);
     digitalWrite(groen1, HIGH);digitalWrite(groen2, HIGH);digitalWrite(groen3, HIGH); digitalWrite(groen4, LOW);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
+    color = "groen";
+
     }
     else if((14*interval<(bufferValue)) && ((bufferValue) <=15*interval)) {
     //groen4
@@ -373,6 +410,8 @@ void setBuffer(){
     digitalWrite(yellow1, HIGH);digitalWrite(yellow2, HIGH);digitalWrite(yellow3, HIGH); digitalWrite(yellow4, HIGH);digitalWrite(yellow5, HIGH);digitalWrite(yellow6, HIGH);
     digitalWrite(groen1, HIGH);digitalWrite(groen2, HIGH);digitalWrite(groen3, HIGH); digitalWrite(groen4, HIGH);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
+    color = "groen";
+
     }
     else if((15*interval<(bufferValue)) && ((bufferValue) <=16*interval)) {
     //groen5
@@ -380,6 +419,7 @@ void setBuffer(){
     digitalWrite(yellow1, HIGH);digitalWrite(yellow2, HIGH);digitalWrite(yellow3, HIGH); digitalWrite(yellow4, HIGH);digitalWrite(yellow5, HIGH);digitalWrite(yellow6, HIGH);
     digitalWrite(groen1, HIGH);digitalWrite(groen2, HIGH);digitalWrite(groen3, HIGH); digitalWrite(groen4, HIGH);digitalWrite(groen5, HIGH);
     ledcWrite(PWM_CHANNEL, dutyCycle);
+    color = "groen";
     }
 }
 void loop()
@@ -403,5 +443,34 @@ if(messageReceived == true){
    messageTemp = "";
    setBuffer();
 }
+
+if(oldColor != color){
+    if(color == "rood"){
+      client.publish("TrappenMaar/zone", "rood");
+    }
+    else if(color == "oranje"){
+      client.publish("TrappenMaar/zone", "oranje");
+
+    }
+    else if(color == "groen"){
+      client.publish("TrappenMaar/zone", "groen");
+    }
+    else if(color = "niets"){
+      client.publish("TrappenMaar/zone", "niets");
+    }
+     color = oldColor;
+
+    
+}
+
+ if (millis() - startTime >= 15000) {
+      // 5 seconds have elapsed. ... do something interesting ...
+      if(oldControlSend == controlSend){
+          control("newNumber");
+          Serial.println("Nieuwe 7 segment en nieuw random nummer gekozen");   
+      }
+          oldControlSend = controlSend;
+          startTime = millis();
+   }
 }
 
