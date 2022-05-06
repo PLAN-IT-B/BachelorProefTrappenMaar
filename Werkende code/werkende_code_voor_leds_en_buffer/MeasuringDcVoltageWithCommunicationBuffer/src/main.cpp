@@ -1,4 +1,3 @@
-#include <Adafruit_PN532.h>
 #include <LiquidCrystal_I2C.h>
 #include "WiFi.h"
 #include "PubSubClient.h"

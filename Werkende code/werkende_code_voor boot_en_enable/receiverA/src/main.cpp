@@ -143,12 +143,12 @@ void reconnect()
     // Attempt to connect
     // creat unique client ID
     // in Mosquitto broker enable anom. access
-    if (client.connect("esp1"))
+    if (client.connect("segment1"))
     {
       Serial.println("connected");
       // Subscribe
       //client.subscribe("input/#");
-      client.subscribe("TrappenMaar/esp1");
+      client.subscribe("TrappenMaar/segment1");
     }
     else
     {
@@ -234,6 +234,5 @@ void schakelLED(String message){
     delay(2000);
     client.publish("TrappenMaar/fiets", "led3");
     delay(2000);
-    client.publish("TrappenMaar/fiets", "ledrgb");
     sendReady();
 }

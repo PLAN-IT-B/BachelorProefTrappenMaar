@@ -20,15 +20,19 @@ int value = 0;
 void callback(char *topic, byte *message, unsigned int length);
 void schakelLED(String message);
 void sendReady();
+unsigned long startTime;
+void control(String message);
+int controlSend = 0;
+int oldControlSend = 0;
 
 
 //for the 7segment display
 int a = 14;  //For displaying segment "a"
 int b = 27;  //For displaying segment "b"
-int c = 33;  //For displaying segment "c"
+int c = 12;  //For displaying segment "c"
 int d = 25;  //For displaying segment "d"
 int e = 26;  //For displaying segment "e"
-int f = 12;  //For displaying segment "f"
+int f = 33;  //For displaying segment "f"
 int g = 13;  //For displaying segment "g"
 int point = 32; //For displaying the point
 
@@ -53,7 +57,8 @@ void setup_wifi()
 
 void setup()
 {
-
+  startTime = millis();
+  
   Serial.begin(115200);
 
   setup_wifi();
@@ -127,7 +132,7 @@ void callback(char *topic, byte *message, unsigned int length)
   }
   Serial.println();
   Serial.println(messageTemp);
-  schakelLED(messageTemp);
+  control(messageTemp);
   Serial.println("ontvangen");
 
 
@@ -143,12 +148,12 @@ void reconnect()
     // Attempt to connect
     // creat unique client ID
     // in Mosquitto broker enable anom. access
-    if (client.connect("esp2"))
+    if (client.connect("segment2"))
     {
       Serial.println("connected");
       // Subscribe
       //client.subscribe("input/#");
-      client.subscribe("TrappenMaar/esp2");
+      client.subscribe("TrappenMaar/segment2");
     }
     else
     {
@@ -177,6 +182,30 @@ void loop()
     lastMsg = now;
   }
 
+  //controlere of 7 segments berichten blijft krijgen
+   if (millis() - startTime >= 15000) {
+      // 5 seconds have elapsed. ... do something interesting ...
+      if(oldControlSend == controlSend){
+          client.publish("TrappenMaar/buffer", "newNumber");
+          Serial.println("newNumber werd OPNIEUW gestuurd naar buffer");   
+      }
+          oldControlSend = controlSend;
+          startTime = millis();
+   }
+/*
+  schakelLED("1");
+  delay(100);
+  turnOff();
+  schakelLED("2");
+  delay(100);
+  turnOff();
+  schakelLED("3");
+  delay(100);
+  turnOff();
+  schakelLED("4");
+  delay(100);
+  turnOff();
+*/
 
   //client.publish("TrappenMaar","R");
   //delay(3000);
@@ -191,33 +220,58 @@ void sendReady(){
   Serial.println("send werd gestuurd naar fiets");
 
   //-----NODIG?? DELAY?? te veel???
-  //delay(50)
-  turnOff();
   delay(50);
-  client.publish("TrappenMaar/buffer", "newNumber");
-  Serial.println("newNumber werd gestuurd naar buffer");
+  turnOff();
+  //delay(50);
+  //client.publish("TrappenMaar/buffer", "newNumber");
+  //Serial.println("newNumber werd gestuurd naar buffer");
 
 }
 
+void control(String mess){
+  if((mess == "0")||(mess == "1")||(mess == "2")||(mess == "3")||(mess == "4")){
+    schakelLED(mess);
+    controlSend ++;
+  }
+
+else if((mess == "resetSegment1")){
+    Serial.println("Restarting in 10 seconds");
+    delay(10000);
+    ESP.restart();
+    Serial.println("Segment 1 is ook ready");
+    client.publish("TrappenMaar/buffer", "Segment1 ready");
+  }
+
+  else {
+    Serial.println("message not for me");
+  }
+  
+}
+
+
 void schakelLED(String message){
-  if (message == "1"){
+  if (message == "0"){
+    displayDigit(0); 
+  }
+  else if (message == "1"){
     displayDigit(1);
-    delay(5000);
-    sendReady();
   }
   else if(message == "2"){
     displayDigit(2);
-    delay(5000);
-    sendReady();
   }
   else if(message == "3"){
     displayDigit(3);
-    delay(5000);
-    sendReady();
   }
   else if(message == "4"){
     displayDigit(4); 
-    delay(5000);
-    sendReady();
   }
+
+    client.publish("TrappenMaar/fiets", "led1");
+    delay(2000);
+    client.publish("TrappenMaar/fiets", "led2");
+    delay(2000);
+    client.publish("TrappenMaar/fiets", "led3");
+    delay(1000);
+    sendReady();
+
 }

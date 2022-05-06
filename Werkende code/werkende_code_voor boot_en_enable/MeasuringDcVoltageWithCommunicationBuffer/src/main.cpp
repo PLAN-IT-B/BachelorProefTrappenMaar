@@ -9,6 +9,9 @@
 #define MQTT_SERVER "192.168.1.2"
 #define MQTT_PORT 1883
 
+char cstr[16];
+
+
 #define LED1 12
 #define LED2 13
 #define LED3 14
@@ -27,6 +30,7 @@ bool messageReceived = false;
 String messageSend;
 
 void callback(char *topic, byte *message, unsigned int length);
+void control(String message);
 
 void setup_wifi()
 {
@@ -132,9 +136,8 @@ void setup() {
   client.setServer(MQTT_SERVER, MQTT_PORT);
   client.setCallback(callback);
 
-  //LEDJES INITIALISEREN
-  pinMode(12, OUTPUT);
-  digitalWrite(12, HIGH);
+
+
   lcd.init();
   lcd.backlight();
   Serial.begin(115200);                // Start serial monitor after a few seconds. Mainly for testing code to get it to work.
@@ -163,7 +166,7 @@ void setup() {
   pinMode (LED1, OUTPUT);
   pinMode (LED2, OUTPUT);
   pinMode (LED3, OUTPUT);
-  pinMode (Rled, OUTPUT);
+  pinMode (19, OUTPUT);
   pinMode (Gled, OUTPUT);
   pinMode (Bled, OUTPUT);
 
@@ -179,11 +182,11 @@ void callback(char *topic, byte *message, unsigned int length)
     Serial.print((char)message[i]);
     messageSend += (char)message[i];
   }
-  Serial.println("Message toegekomen");
+  Serial.print("Message toegekomen: ");
+  Serial.print(messageSend);
   messageReceived = true;
 
 
-  // Feel free to add more if statements to control more GPIOs with MQTT
 }
 
 void reconnect()
@@ -305,43 +308,83 @@ void loop() {
   
   char cstr[16];
 
-  if((messageReceived == true) && (messageSend == "send")){
-    messageReceived = false;
-    messageSend = "";
+  
+if(messageReceived == true){
+   messageReceived = false;
+   control(messageSend);
+   Serial.println(messageSend);
+   messageSend = "";
+    
+}
+
+
+}
+
+void control(String mess){
+  //checken of 'newNumber': w gezonden dr segment wnn 7segment klaar is
+ Serial.println("CONTROL IS OKE");
+
+if(messageSend == "send"){
+    Serial.println("message send is toegekomen");
     itoa(level, cstr,10);
     client.publish("TrappenMaar/buffer", cstr);
     Serial.print("level wordt verstuurd: ");
     Serial.println(cstr);
-    
-    digitalWrite (LED1, LOW);	
-    digitalWrite (LED2, LOW);	
-    digitalWrite (LED3, LOW);	
-    digitalWrite (Gled, LOW);	
-    digitalWrite (Rled, LOW);	
+  
 
   }
 
-    if((messageReceived == true) && (messageSend == "led1")){
+    else if(messageSend == "led1"){
         digitalWrite (LED1, HIGH);	// turn on the LED
     }
 
-    if((messageReceived == true) && (messageSend == "led2")){
+    else if(messageSend == "led2"){
         digitalWrite (LED2, HIGH);	// turn on the LED
     }
 
-    if((messageReceived == true) && (messageSend == "led3")){
+    else if(messageSend == "led3"){
         digitalWrite (LED3, HIGH);	// turn on the LED
     }
 
-    if((messageReceived == true) && (messageSend == "correct")){
-      digitalWrite (Gled, HIGH);	// turn on the LED
+    else if(messageSend == "correct"){
+      digitalWrite (Gled, HIGH);
+      delay(1000);
+      digitalWrite (LED1, LOW);	
+      digitalWrite (LED2, LOW);	
+      digitalWrite (LED3, LOW);	
+      digitalWrite (Rled, LOW);
+      digitalWrite (Gled, LOW);
+      client.publish("TrappenMaar/buffer", "newNumber");
+      Serial.println("newNumber werd gestuurd naar buffer");
+	// turn on the GREEN LED
     }
 
     
-    if((messageReceived == true) && (messageSend == "false")){
-      digitalWrite (Rled, HIGH);	// turn on the LED
+    else if(messageSend == "false"){
+      digitalWrite (19, HIGH);	// turn on the RED LED
+      delay(1000);
+      digitalWrite (LED1, LOW);	
+      digitalWrite (LED2, LOW);	
+      digitalWrite (LED3, LOW);	
+      digitalWrite (Rled, LOW);
+      digitalWrite (Gled, LOW);
+      client.publish("TrappenMaar/buffer", "newNumber");
+      Serial.println("newNumber werd gestuurd naar buffer");
+    }
+
+    else if(messageSend == "resetFiets"){
+      Serial.println("Restarting in 10 seconds");
+      delay(10000);
+      ESP.restart();
+      Serial.println("Fiets is ook ready");
+      client.publish("TrappenMaar/buffer", "Fiets ready");
+    
     }
   
-}
+    else{
+      Serial.print("FOUT BERICHT:");
+      Serial.println(messageSend);
+    }
 
+}
 
