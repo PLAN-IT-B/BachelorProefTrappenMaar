@@ -203,7 +203,7 @@ void control(String mess){
         checkMessage(mess);
         Serial.println(bufferValue);
     }
-/*
+
   else if(mess == "grote fout"){
     if(bufferValue!=0){
     bufferValue -=2;}
@@ -219,7 +219,7 @@ void control(String mess){
       Serial.println("BUFFER IS LEEG");
     }
   }
-*/
+
 
   else if(mess == "reset"){
       client.publish("TrappenMaar/segment1","resetSegment1");
