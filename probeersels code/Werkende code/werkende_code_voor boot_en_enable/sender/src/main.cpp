@@ -56,8 +56,6 @@ void sendTo7Segment (int eps, char* cstr);
 void checkMessage(String mess);
 void control(String message);
 void setBuffer();
-int aantalReady = 0;
-
 
 void setup_wifi()
 {
@@ -152,24 +150,24 @@ void sendTo7Segment(int randomEsp, char* cstr){
   Serial.print("probeer");
   Serial.println(cstr);
   if(randomEsp == 1) {
-    Serial.println("message send to segment1");
-    client.publish("TrappenMaar/segment1", cstr);
+    Serial.println("message send to esp1");
+    client.publish("TrappenMaar/esp1", cstr);
     cstr="";  
     }
     
 
   else if (randomEsp ==2){
-    Serial.println("message send to segment2");
-    client.publish("TrappenMaar/segment2", cstr);
+    Serial.println("message send to esp2");
+    client.publish("TrappenMaar/esp2", cstr);
     cstr="";
   }
 
   else if (randomEsp ==3){
-    client.publish("TrappenMaar/segment3", cstr);
+    client.publish("TrappenMaar/esp3", cstr);
   }
   
   else if (randomEsp ==4){
-    client.publish("TrappenMaar/segment4", cstr);
+    client.publish("TrappenMaar/esp4", cstr);
   }
 
 }
@@ -182,10 +180,10 @@ void control(String mess){
  if(mess == "newNumber"){
     Serial.println("MESSAGE: newNumber ARRIVED");
     //OORSPRONKELIJK TUSSEN 1 EN 5
-    int randomGetal = random(0,5);
+    int randomGetal = random(0,3);
     itoa(randomGetal,cstr,10);
     //OORSPRONKELIJK TUSSEN 1 EN 5
-    int randomEsp = random(2,3); //getal 1,2, 3 of 4
+    int randomEsp = random(1,2); //getal 1,2, 3 of 4
     Serial.println("randomESP");
     Serial.print("esp: ");
     Serial.print(randomEsp);
@@ -203,7 +201,7 @@ void control(String mess){
         checkMessage(mess);
         Serial.println(bufferValue);
     }
-/*
+
   else if(mess == "grote fout"){
     if(bufferValue!=0){
     bufferValue -=2;}
@@ -219,25 +217,6 @@ void control(String mess){
       Serial.println("BUFFER IS LEEG");
     }
   }
-*/
-
-  else if(mess == "reset"){
-      client.publish("TrappenMaar/segment1","resetSegment1");
-      client.publish("TrappenMaar/fiets","resetFiets");
-
-  }
-
-   else if((mess == "Fiets ready")||(mess == "Segment1 ready")){
-    aantalReady ++;
-    if(aantalReady == 2){
-      aantalReady = 0;
-      Serial.println("Restarting in 10 seconds");
-      delay(10000);
-      ESP.restart();
-      Serial.println("Buffer is ook ready");
-      client.publish("controlpanel/reset", "TrappenMaar is ready");
-    }
-   }
 
   else{
     Serial.println("MESSAGE: not for me");
@@ -251,11 +230,10 @@ void checkMessage(String mess) {
   if(mess == cstr){
     bufferValue ++;
     client.publish("TrappenMaar/fiets", "correct");
+    Serial.println("CORRECT GEFIETST, buffer stijgt");
   }
   else{
     client.publish("TrappenMaar/fiets", "false");
-    Serial.println("FOUT GEFIETST, buffer stijgt niet");
-
   }
 }
 
