@@ -177,9 +177,27 @@ void loop()
     lastMsg = now;
   }
 
-  displayDigit(8);
-  delay(500);
-  turnOff();
+  digitalWrite(a, HIGH);
+  delay(100);
+  digitalWrite(a, LOW);
+  digitalWrite(b, HIGH);
+  delay(100);
+  digitalWrite(b, LOW);
+  digitalWrite(c, HIGH);
+  delay(100);
+  digitalWrite(c, LOW);
+  digitalWrite(d, HIGH);
+  delay(100);
+  digitalWrite(d, LOW);
+  digitalWrite(e, HIGH);
+  delay(100);
+  digitalWrite(e, LOW);
+  digitalWrite(f, HIGH);
+  delay(100);
+  digitalWrite(f, LOW);
+  digitalWrite(g, HIGH);
+  delay(100);
+  digitalWrite(g, LOW);
   delay(100);
   displayDigit(8);
   delay(500);
