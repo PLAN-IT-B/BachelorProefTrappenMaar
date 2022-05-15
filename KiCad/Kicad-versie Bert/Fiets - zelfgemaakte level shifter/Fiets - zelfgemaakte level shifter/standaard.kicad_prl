@@ -1,8 +1,14 @@
 {
   "board": {
+<<<<<<< HEAD
+    "active_layer": 31,
+    "active_layer_preset": "",
+    "auto_track_width": false,
+=======
     "active_layer": 0,
     "active_layer_preset": "All Layers",
     "auto_track_width": true,
+>>>>>>> 3eb243345f55cd62214b24f15a332500b6682181
     "hidden_nets": [],
     "high_contrast_mode": 0,
     "net_color_mode": 1,
