@@ -50,6 +50,8 @@ String messageTemp = "newNumber";
 bool messageReceived = true;
 String color = "";
 String oldColor = color;
+String vol = "";
+String oldVol = vol;
 
 int controlSend = 0;
 int oldControlSend = 0;
@@ -63,6 +65,7 @@ void checkMessage(String mess);
 void control(String message);
 void setBuffer();
 int aantalReady = 0;
+String vol = "";
 
 
 
@@ -141,9 +144,12 @@ void reconnect()
     if (client.connect("buffer"))
     {
       Serial.println("connected");
+      client.publish("controlpanel/status", "Trappenmaar Ready");
+
       // Subscribe
       // client.subscribe("input/#");
       client.subscribe("TrappenMaar/buffer");
+      client.subscribe("controlpanel/reset");
     }
     else
     {
@@ -219,43 +225,61 @@ void control(String mess){
     }
 
   else if(mess == "grote fout"){
-    if(bufferValue!=0){
+    if(bufferValue>=2){
     bufferValue -=2;}
     else{
       Serial.println("BUFFER IS LEEG");
+      bufferValue =0;
     }
   }
   
   else if(mess == "kleine fout"){
-    if(bufferValue!=0){
+    if(bufferValue>=1){
     bufferValue -=1;}
     else{
       Serial.println("BUFFER IS LEEG");
+      bufferValue =0;
     }
   }
 
+  else if(mess == "omhoog"){
+    if(bufferValue != Maxscore){
+    bufferValue +=1;
+    }
+  }
+    
 
-  else if(mess == "reset"){
+
+
+  else if((mess == "Reset escaperoom") ||(mess == "Reset TrappenMaar")){
       client.publish("TrappenMaar/segment1","resetSegment1");
       client.publish("TrappenMaar/segment2","resetSegment2");
       client.publish("TrappenMaar/segment3","resetSegment3");
       client.publish("TrappenMaar/segment4","resetSegment4");
-
       client.publish("TrappenMaar/fiets","resetFiets");
+      bufferValue=0;
+      delay(15000);
+      Serial.println("Restarting in 1 seconds");
+      delay(1000);
+      ESP.restart();
+      Serial.println("Buffer is ook ready");
+      //client.publish("controlpanel/status", "Trappenmaar Ready");
+
+
 
   }
 
-   else if((mess == "Fiets ready")||(mess == "Segment1 ready")||(mess == "Segment2 ready")||(mess == "Segment3 ready")||(mess == "Segment4 ready")){
+  /* else if((mess == "Fiets ready")||(mess == "Segment1 ready")||(mess == "Segment2 ready")||(mess == "Segment3 ready")||(mess == "Segment4 ready")){
     aantalReady ++;
     if(aantalReady == 5){
       aantalReady = 0;
       Serial.println("Restarting in 10 seconds");
-      delay(10000);
+      delay(1000);
       ESP.restart();
       Serial.println("Buffer is ook ready");
-      client.publish("controlpanel/reset", "TrappenMaar is ready");
+      client.publish("controlpanel/status", "Trappenmaar Ready");
     }
-   }
+   }*/
 
   else{
     Serial.println("MESSAGE: not for me");
@@ -267,7 +291,7 @@ void control(String mess){
 void checkMessage(String mess) {
    if(mess == cstr){
     if(bufferValue != Maxscore){
-    bufferValue ++;
+    bufferValue +=2;
     client.publish("TrappenMaar/fiets", "correct");}
     else{
       client.publish("TrappenMaar/fiets", "correct");}
@@ -288,6 +312,7 @@ void setBuffer(){
     digitalWrite(groen1, LOW);digitalWrite(groen2, LOW);digitalWrite(groen3, LOW); digitalWrite(groen4, LOW);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
     color = "niets";
+    vol = "leeg";
 
 	} 
     else if((0*interval<(bufferValue)) && ((bufferValue) <=1*interval)) {
@@ -297,6 +322,8 @@ void setBuffer(){
     digitalWrite(groen1, LOW);digitalWrite(groen2, LOW);digitalWrite(groen3, LOW); digitalWrite(groen4, LOW);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
     color = "rood";
+    vol = "leeg";
+
     
     }
     else if((1*interval<(bufferValue)) && ((bufferValue) <=2*interval)) {
@@ -306,6 +333,8 @@ void setBuffer(){
     digitalWrite(groen1, LOW);digitalWrite(groen2, LOW);digitalWrite(groen3, LOW); digitalWrite(groen4, LOW);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
     color = "rood";
+    vol = "leeg";
+
 
     }
     else if((2*interval<(bufferValue)) && ((bufferValue) <=3*interval)) {
@@ -315,6 +344,8 @@ void setBuffer(){
     digitalWrite(groen1, LOW);digitalWrite(groen2, LOW);digitalWrite(groen3, LOW); digitalWrite(groen4, LOW);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
     color = "rood";
+    vol = "leeg";
+
 
     }
     else if((3*interval<(bufferValue)) && ((bufferValue) <=4*interval)) {
@@ -324,6 +355,8 @@ void setBuffer(){
     digitalWrite(groen1, LOW);digitalWrite(groen2, LOW);digitalWrite(groen3, LOW); digitalWrite(groen4, LOW);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
     color = "rood";
+    vol = "leeg";
+
 
     }
     else if((4*interval<(bufferValue)) && ((bufferValue) <=5*interval)) {
@@ -333,6 +366,8 @@ void setBuffer(){
     digitalWrite(groen1, LOW);digitalWrite(groen2, LOW);digitalWrite(groen3, LOW); digitalWrite(groen4, LOW);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
     color = "rood";
+    vol = "leeg";
+
 
     }
     else if((5*interval<(bufferValue)) && ((bufferValue) <=6*interval)) {
@@ -342,7 +377,7 @@ void setBuffer(){
     digitalWrite(groen1, LOW);digitalWrite(groen2, LOW);digitalWrite(groen3, LOW); digitalWrite(groen4, LOW);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
     color = "oranje";
-
+    vol = "leeg";
 	}
     else if((6*interval<(bufferValue)) && ((bufferValue) <=7*interval)) {
     //oranje2
@@ -351,6 +386,8 @@ void setBuffer(){
     digitalWrite(groen1, LOW);digitalWrite(groen2, LOW);digitalWrite(groen3, LOW); digitalWrite(groen4, LOW);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
     color = "oranje";
+    vol = "leeg";
+
 
     }
     else if((7*interval<(bufferValue)) && ((bufferValue) <=8*interval)) {
@@ -360,6 +397,8 @@ void setBuffer(){
     digitalWrite(groen1, LOW);digitalWrite(groen2, LOW);digitalWrite(groen3, LOW); digitalWrite(groen4, LOW);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
     color = "oranje";
+    vol = "leeg";
+
 
     }
     else if((8*interval<(bufferValue)) && ((bufferValue) <=9*interval)) {
@@ -369,6 +408,8 @@ void setBuffer(){
     digitalWrite(groen1, LOW);digitalWrite(groen2, LOW);digitalWrite(groen3, LOW); digitalWrite(groen4, LOW);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
     color = "oranje";
+    vol = "leeg";
+
 
     }
     else if((9*interval<(bufferValue)) && ((bufferValue) <=10*interval)) {
@@ -378,6 +419,7 @@ void setBuffer(){
     digitalWrite(groen1, LOW);digitalWrite(groen2, LOW);digitalWrite(groen3, LOW); digitalWrite(groen4, LOW);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
     color = "oranje";
+    vol = "leeg";
 
     }
     else if((10*interval<(bufferValue)) && ((bufferValue) <=11*interval)) {
@@ -387,6 +429,7 @@ void setBuffer(){
     digitalWrite(groen1, LOW);digitalWrite(groen2, LOW);digitalWrite(groen3, LOW); digitalWrite(groen4, LOW);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
     color = "oranje";
+    vol = "leeg";
 
     }
     else if((11*interval<(bufferValue)) && ((bufferValue) <=12*interval)) {
@@ -396,6 +439,7 @@ void setBuffer(){
     digitalWrite(groen1, HIGH);digitalWrite(groen2, LOW);digitalWrite(groen3, LOW); digitalWrite(groen4, LOW);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
     color = "groen";
+    vol = "leeg";
 
     }
     else if((12*interval<(bufferValue)) && ((bufferValue) <=13*interval)) {
@@ -405,6 +449,7 @@ void setBuffer(){
     digitalWrite(groen1, HIGH);digitalWrite(groen2, HIGH);digitalWrite(groen3, LOW); digitalWrite(groen4, LOW);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
     color = "groen";
+    vol = "leeg";
 
     }
     else if((13*interval<(bufferValue)) && ((bufferValue) <=14*interval)) {
@@ -414,6 +459,7 @@ void setBuffer(){
     digitalWrite(groen1, HIGH);digitalWrite(groen2, HIGH);digitalWrite(groen3, HIGH); digitalWrite(groen4, LOW);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
     color = "groen";
+    vol = "leeg";
 
     }
     else if((14*interval<(bufferValue)) && ((bufferValue) <=15*interval)) {
@@ -423,6 +469,7 @@ void setBuffer(){
     digitalWrite(groen1, HIGH);digitalWrite(groen2, HIGH);digitalWrite(groen3, HIGH); digitalWrite(groen4, HIGH);digitalWrite(groen5, LOW);
     ledcWrite(PWM_CHANNEL, dutyCycle);
     color = "groen";
+    vol = "leeg";
 
     }
     else if((15*interval<(bufferValue)) && ((bufferValue) <=16*interval)) {
@@ -432,6 +479,9 @@ void setBuffer(){
     digitalWrite(groen1, HIGH);digitalWrite(groen2, HIGH);digitalWrite(groen3, HIGH); digitalWrite(groen4, HIGH);digitalWrite(groen5, HIGH);
     ledcWrite(PWM_CHANNEL, dutyCycle);
     color = "groen";
+    vol = "vol";
+    client.publish("ESPTREIN/vol", "vol");
+
 
     }
 }
@@ -457,6 +507,16 @@ if(messageReceived == true){
    setBuffer();
 }
 
+if(oldVol != vol){
+  if(vol == "vol"){
+    client.publish("TrappenMaar/zone", "vol");}
+  else if(vol == "leeg"){
+    client.publish("TrappenMaar/zone", "niet vol");}
+  
+  oldVol = vol;
+  }
+
+
 if(oldColor != color){
     if(color == "rood"){
       client.publish("TrappenMaar/zone", "rood");
@@ -471,7 +531,7 @@ if(oldColor != color){
     else if(color = "niets"){
       client.publish("TrappenMaar/zone", "niets");
     }
-     color = oldColor;
+     oldColor = color;
 
     
 }

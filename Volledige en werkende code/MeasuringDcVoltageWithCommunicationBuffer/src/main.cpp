@@ -220,10 +220,10 @@ void reconnect()
 
 void display(int r) {
   lcd.setCursor(15, 2);
-  if (int(r) < 10) {
+  /*if (int(r) < 10) {
     lcd.print(" ");  // if less then 10 add " " space - to remove prev carcters
   }
-  lcd.print(r);
+  lcd.print(r);*/
     if( (r)==0) {
       //eerst dan even kijken of het nul blijft
       //of fouten eruit te filteren
