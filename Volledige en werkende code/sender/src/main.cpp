@@ -34,7 +34,7 @@ int PWM_frequency = 1000;
 int PWM_CHANNEL = 0;
 int PWM_RESOLUTION = 8;
 int dutyCycle = 127;
-int interval =2;
+int interval =1;
 int Maxscore = 16*interval;
 boolean oplopen = true;
 
@@ -65,7 +65,6 @@ void checkMessage(String mess);
 void control(String message);
 void setBuffer();
 int aantalReady = 0;
-String vol = "";
 
 
 
@@ -225,8 +224,8 @@ void control(String mess){
     }
 
   else if(mess == "grote fout"){
-    if(bufferValue>=2){
-    bufferValue -=2;}
+    if(bufferValue>=1){
+    bufferValue -=1;}
     else{
       Serial.println("BUFFER IS LEEG");
       bufferValue =0;
@@ -234,8 +233,8 @@ void control(String mess){
   }
   
   else if(mess == "kleine fout"){
-    if(bufferValue>=1){
-    bufferValue -=1;}
+    if(bufferValue>=0.5){
+    bufferValue -=0.5;}
     else{
       Serial.println("BUFFER IS LEEG");
       bufferValue =0;
